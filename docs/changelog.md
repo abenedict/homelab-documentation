@@ -2,6 +2,17 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — OPNsense router onboarded and documented
+
+- **opnsense** (you, web UI): created user `claude` (admins group) with Claude's public key.
+  - First attempt failed: oracle1's GitHub deploy key had been pasted by mistake (with a stray `+`, so it never worked). Replaced with the correct key.
+- **vibe-lab**: Added `Host opnsense` (192.168.1.1, user `claude`) to `ssh/config`. Host key recorded in `ssh/known_hosts`
+  (ED25519 `SHA256:9Dr9J1aiPywaX0OKE5L2HzgLPf8H2rrCX3JVduJT6u0`).
+- **opnsense**: Read `config.xml` and live state (read-only, nothing changed). Results in [hosts/opnsense.md](hosts/opnsense.md),
+  secrets left out. The raw config was copied to a temporary scratch folder for parsing and deleted afterwards.
+- **vibe-lab**: Ran one `curl ifconfig.me` to check which route the server VLAN takes to the internet.
+- Undo: delete user `claude` in System → Access → Users; remove the `Host opnsense` block and the `192.168.1.1` line in `ssh/known_hosts`.
+
 ## 2026-10-04 — GitHub becomes the main docs copy
 
 - **vibe-lab**: `main` now tracks `github/main` (was `oracle1/main`). README Sync section rewritten.

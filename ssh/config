@@ -18,3 +18,7 @@ Host *
 Host oracle1
     HostName 129.80.178.38
     User ubuntu
+
+Host opnsense
+    HostName 192.168.1.1
+    User claude
