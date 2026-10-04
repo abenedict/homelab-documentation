@@ -11,6 +11,7 @@ _Info gathered 2026-10-04 (fresh install, fully updated)._
 | Private IP | 10.0.0.206/24 (gateway 10.0.0.1), interface `enp0s6` |
 | User | `ubuntu` (passwordless sudo) |
 | Host key | ED25519 `SHA256:HWAWRVAW3+rtygXUstKZ0C/bgKVswCpW0qh2nyzpMhI` |
+| Tailscale | `oracle1` / 100.76.43.37 / `oracle1.tail80394.ts.net` |
 | Authorized keys | `alansshkey2022` (my personal key), `claude-code@vibe-lab` |
 
 ## Oracle Cloud details
@@ -54,7 +55,7 @@ Two firewall layers. **A new service needs BOTH opened:**
 rules (Docker adds its own rules), so only Oracle's firewall would protect it. Publish ports bound
 to localhost (`127.0.0.1:8080:8080`) unless a service really is meant to be public.
 
-Listening ports: `22/tcp` sshd (public), `111` rpcbind (blocked by iptables), `53` systemd-resolved (localhost only).
+Listening ports: `22/tcp` sshd (public), `8080` code-server (127.0.0.1 only), Tailscale (tailnet only), `111` rpcbind (blocked by iptables), `53` systemd-resolved (localhost only).
 
 ## SSH server
 
@@ -63,8 +64,16 @@ Listening ports: `22/tcp` sshd (public), `111` rpcbind (blocked by iptables), `5
 ## Running services (stock)
 
 chrony, iscsid, rpcbind, ssh, snapd, unattended-upgrades, ModemManager, udisks2,
-Oracle Cloud Agent (snap `oracle-cloud-agent`, held). Other snaps: `core18`, `snapd`.
+tailscaled, docker, containerd, Oracle Cloud Agent (snap `oracle-cloud-agent`, held). Other snaps: `core18`, `snapd`.
+
+## Docker stacks
+
+| Stack | Location on server | Source in this repo | Access |
+|---|---|---|---|
+| code-server | `~/stacks/code-server/` | `configs/oracle1/code-server/compose.yaml` | https://oracle1.tail80394.ts.net (tailnet only) |
+
+Docs working copy: `~/homelab-docs` (git, pushed from vibe-lab).
 
 ## Role
 
-_Not decided yet._
+- Hosts the browser-accessible homelab docs (code-server). See decision 0002.

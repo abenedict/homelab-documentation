@@ -2,6 +2,19 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — Browser docs: Tailscale, code-server, git sync
+
+Decision: [decisions/0002-docs-browser-access.md](decisions/0002-docs-browser-access.md)
+
+- **vibe-lab**: `~/claude` is now a git repo. Added `.gitignore` (private key excluded). Repo-local identity `abenedict <abenedict@vibe-lab>` (no work email). Remote `oracle1` added; `core.sshCommand` uses `ssh/config`.
+- **oracle1**: Installed Tailscale 1.102.4 (apt repo `pkgs.tailscale.com`), joined the tailnet as `oracle1` (100.76.43.37). Tailscale SSH not enabled.
+  - Undo: `sudo tailscale down && sudo apt purge tailscale`, then remove the machine from the Tailscale admin console.
+- **oracle1**: Created `~/homelab-docs` (git working copy, `receive.denyCurrentBranch=updateInstead`).
+- **oracle1**: Deployed code-server from `configs/oracle1/code-server/compose.yaml` to `~/stacks/code-server/`. Bound to 127.0.0.1:8080, runs as uid 1001.
+  - Undo: `cd ~/stacks/code-server && docker compose down && rm -rf ~/stacks/code-server`
+- **oracle1**: `tailscale serve --bg --https=443 http://127.0.0.1:8080` (requires Serve/HTTPS enabled in the tailnet admin).
+  - Undo: `sudo tailscale serve reset`
+
 ## 2026-10-04 — oracle1: Docker installed
 
 - **oracle1**: Installed Docker CE 29.8.2, buildx, and the Compose plugin (v5.6.0) from Docker's official apt repo (`/etc/apt/sources.list.d/docker.sources`, key `/etc/apt/keyrings/docker.asc`).
