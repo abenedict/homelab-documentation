@@ -14,6 +14,7 @@ Decision: [decisions/0002-docs-browser-access.md](decisions/0002-docs-browser-ac
   - Undo: `cd ~/stacks/code-server && docker compose down && rm -rf ~/stacks/code-server`
 - **oracle1**: `tailscale serve --bg --https=443 http://127.0.0.1:8080` (requires Serve/HTTPS enabled in the tailnet admin).
   - Undo: `sudo tailscale serve reset`
+  - Note: Serve was enabled in the tailnet admin console first, then the command was re-run. Verified: valid HTTPS certificate, redirects to the code-server login page.
 
 ## 2026-10-04 — oracle1: Docker installed
 

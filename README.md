@@ -35,6 +35,7 @@ ssh -F ~/claude/ssh/config <host-alias>
 
 `https://oracle1.tail80394.ts.net` (needs Tailscale on the device). The code-server password is in
 `/home/ubuntu/stacks/code-server/data/config/code-server/config.yaml` on oracle1.
+To view the password from vibe-lab: `ssh -F ~/claude/ssh/config oracle1 grep password: stacks/code-server/data/config/code-server/config.yaml`
 See [docs/decisions/0002-docs-browser-access.md](docs/decisions/0002-docs-browser-access.md).
 
 ## Sync
