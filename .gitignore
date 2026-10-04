@@ -4,3 +4,5 @@ ssh/claude_homelab_ed25519
 secrets/
 *.key
 *.env
+# Claude Code personal permission settings (machine-specific)
+.claude/settings.local.json

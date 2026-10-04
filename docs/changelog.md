@@ -2,6 +2,15 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — GitHub off-site backup remote
+
+- **vibe-lab**: Added git remote `github` = `git@github.com:abenedict/homelab-documentation.git` (private repo, already existed).
+  - Why: off-site backup; before this the docs existed only on vibe-lab and oracle1.
+  - Auth: Claude's existing key `ssh/claude_homelab_ed25519` added as a deploy key (write access) on that repo only. Reused rather than a new key because whoever holds it already has root on oracle1.
+  - GitHub's host key added to `ssh/known_hosts`; fingerprint matched GitHub's published one (`SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`).
+  - The repo had two earlier commits (README added, then removed; empty tree). Merged them in with `--allow-unrelated-histories` instead of force-pushing, so nothing on GitHub was overwritten.
+  - Undo: `git remote remove github`, delete the deploy key in the repo's Settings → Deploy keys, remove the `github.com` line from `ssh/known_hosts`.
+
 ## 2026-10-04 — Browser docs: Tailscale, code-server, git sync
 
 Decision: [decisions/0002-docs-browser-access.md](decisions/0002-docs-browser-access.md)
