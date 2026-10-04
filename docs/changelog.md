@@ -2,6 +2,18 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — oracle1 pulls from GitHub instead of being pushed to
+
+- **oracle1**: Ran `git fetch github` inside the code-server container to fix a stale `github/main` ref, which made
+  code-server show 2 commits waiting to sync that GitHub already had.
+- **vibe-lab**: Stopped pushing to oracle1. After pushing to GitHub, Claude now runs `git pull --ff-only` on oracle1
+  inside the code-server container. The `oracle1` remote stays for fetch-only fallback. Decision 0003 and the README
+  Sync section updated.
+- **oracle1** (you): unset `receive.denyCurrentBranch` in `~/homelab-docs`, since nothing pushes into it now.
+- **vibe-lab** (you): removed the `git push oracle1 main` allow rule from `.claude/settings.local.json`.
+- Why: see [decisions/0003-github-main-copy.md](decisions/0003-github-main-copy.md) ("Pull, not push, on oracle1").
+- Undo: on oracle1, `git config receive.denyCurrentBranch updateInstead`; restore the old Workflow from git history.
+
 ## 2026-10-04 — OPNsense notes updated
 
 - Docs only, nothing changed on any system. [hosts/opnsense.md](hosts/opnsense.md): marked the WireGuard setup as an

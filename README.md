@@ -21,7 +21,7 @@ Everything Claude generates or changes is recorded here so it can be rebuilt or 
 - Non-obvious choices get a decision record in `docs/decisions/NNNN-short-title.md`.
 - New servers get a page in `docs/hosts/` and a `Host` block in `ssh/config`.
 - Secrets (passwords, API tokens) are **not** written into docs — docs say where the secret lives instead.
-- Before editing docs: `git pull github main`. After: commit, then `git push github main` and `git push oracle1 main` (as separate commands).
+- Before editing docs: `git pull github main`. After: commit, `git push github main`, then pull on oracle1 (see Sync).
 
 ## Quick reference
 
@@ -45,9 +45,10 @@ GitHub is the main copy. This folder is a git repo; `main` tracks `github/main`.
 | Remote | Where | Role |
 |---|---|---|
 | `github` | `git@github.com:abenedict/homelab-documentation.git` (private) | Main copy; everything syncs through it |
-| `oracle1` | `/home/ubuntu/homelab-docs` on oracle1 | Browser (code-server) working copy; pushing here updates its files |
+| `oracle1` | `/home/ubuntu/homelab-docs` on oracle1 | Browser (code-server) working copy; fetch-only fallback, never pushed to |
 
-`git pull github main`, then after committing `git push github main` and `git push oracle1 main`.
+`git pull github main`, then after committing `git push github main`, then update the browser copy from GitHub:
+`ssh -F ~/claude/ssh/config oracle1 docker exec -w /home/coder/homelab-docs code-server git pull --ff-only`.
 The oracle1 copy also has a `github` remote, so browser edits go to GitHub directly (Source Control → Sync).
 Each machine has its own write-enabled deploy key on the GitHub repo. Private keys are never synced.
 See [docs/decisions/0003-github-main-copy.md](docs/decisions/0003-github-main-copy.md).
