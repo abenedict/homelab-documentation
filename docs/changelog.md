@@ -2,6 +2,12 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — OPNsense notes updated
+
+- Docs only, nothing changed on any system. [hosts/opnsense.md](hosts/opnsense.md): marked the WireGuard setup as an
+  abandoned leftover (old Oracle server, not oracle1), deferred its cleanup, and recorded the plan to replace the
+  router with Ubiquiti and switch ISP from Quantum Fiber to Google Fiber.
+
 ## 2026-10-04 — OPNsense router onboarded and documented
 
 - **opnsense** (you, web UI): created user `claude` (admins group) with Claude's public key.

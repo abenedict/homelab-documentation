@@ -3,6 +3,9 @@
 Documented 2026-10-04 from `/conf/config.xml` and live state, read-only. Nothing on the router was changed.
 Raw config is **not** stored in this repo (it contains password hashes, VPN private keys, and backup credentials).
 
+> **Status:** working, but expected to be replaced. Plan (2026-10-04): move to a Ubiquiti router + Wi-Fi, and switch
+> ISP from Quantum Fiber to Google Fiber. No timeline yet. This page doubles as the inventory for that migration.
+
 ## Summary
 
 | | |
@@ -46,12 +49,15 @@ despite its name.
 - `WG_GW`: 10.0.30.1 via `opt3` (WireGuard), not default, monitoring disabled.
 - No static routes.
 
-## WireGuard
+## WireGuard (leftover — ignore for now)
+
+Left over from an abandoned attempt to route the whole network through a VPN on an old Oracle server. Not in use.
+Possible cleanup later.
 
 - Instance `wg0`: listen port 51820, tunnel address 10.0.30.2/30, MTU 1420.
 - One peer, `oracle`: endpoint `129.159.100.12:51820`, allowed IPs `10.0.30.0/30, 192.168.100.0/24`,
   keepalive 25 s. Keys are in `config.xml` (not copied here).
-- ⚠ The endpoint is **not** oracle1 (129.80.178.38). Which machine this is isn't documented yet.
+- The endpoint is the old Oracle server, **not** oracle1 (129.80.178.38).
 - No WAN firewall rule allows inbound UDP 51820, so the tunnel only works as an outbound connection from the router.
 
 ## DHCP (Kea — active)
@@ -123,9 +129,9 @@ Filter rules, in evaluation order (first match wins):
 | 10 | opt1 | Allow any → any **via `WG_GW`** ("Route server VLAN through WireGuard") |
 | 11 | WireGuard group | Allow all inbound |
 
-⚠ **Rule 10 never matches.** Rule 8 above it already allows all IPv4 from opt1, so the server VLAN goes out the normal
-WAN. Checked 2026-10-04: vibe-lab's public IP is the router's WAN address, not the tunnel. Either rule 10 is leftover,
-or it was meant to apply and needs to move above rule 8. That's your call.
+Rule 10 is part of the WireGuard leftover. It never matches, because rule 8 above it already allows all IPv4 from opt1,
+so the server VLAN goes out the normal WAN (checked 2026-10-04: vibe-lab's public IP is the router's WAN address).
+Harmless as is.
 
 No inter-VLAN isolation: LAN and opt1 can reach each other freely.
 
@@ -150,8 +156,9 @@ Plugins installed: `os-cpu-microcode-intel`, `os-dmidecode`, `os-gdrive-backup`,
 
 ## Open questions
 
-1. Which machine is the WireGuard peer `oracle` at 129.159.100.12?
-2. Should the server VLAN go through WireGuard (fix rule order), or is rule 10 leftover?
-3. `plex`/`truenas` aliases vs the Kea reservations. Which IP is Plex on now?
-4. Should the inactive ISC static mappings be moved to Kea or removed?
-5. Is `opt2` (VLAN200, /32, unplugged) still wanted?
+Deferred: WireGuard leftovers (`wg0`, peer `oracle`, `WG_GW`, filter rules 10–11), to clean up later or drop with
+the router replacement.
+
+1. `plex`/`truenas` aliases vs the Kea reservations. Which IP is Plex on now?
+2. Should the inactive ISC static mappings be moved to Kea or removed?
+3. Is `opt2` (VLAN200, /32, unplugged) still wanted?
