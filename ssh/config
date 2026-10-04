@@ -1,0 +1,20 @@
+# SSH config used by Claude for homelab access.
+# Usage: ssh -F /home/abenedict/claude/ssh/config <host-alias>
+# Add one Host block per server as they're onboarded (see docs/hosts/).
+
+Host *
+    IdentityFile /home/abenedict/claude/ssh/claude_homelab_ed25519
+    IdentitiesOnly yes
+    UserKnownHostsFile /home/abenedict/claude/ssh/known_hosts
+    StrictHostKeyChecking accept-new
+    ServerAliveInterval 30
+    ConnectTimeout 10
+
+# Example:
+# Host nas
+#     HostName 192.168.1.10
+#     User admin
+
+Host oracle1
+    HostName 129.80.178.38
+    User ubuntu

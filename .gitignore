@@ -1,0 +1,6 @@
+# Never commit or sync the private SSH key
+ssh/claude_homelab_ed25519
+# Secrets go here if ever needed locally; never synced
+secrets/
+*.key
+*.env
