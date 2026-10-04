@@ -2,6 +2,17 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-04 — GitHub becomes the main docs copy
+
+- **vibe-lab**: `main` now tracks `github/main` (was `oracle1/main`). README Sync section rewritten.
+- **oracle1**: In the code-server container, generated deploy key `~/.config/ssh/github_ed25519`
+  (host: `~/stacks/code-server/data/config/ssh/`), fingerprint `SHA256:haUTj+nD2E1azG3PzAZYtiZU2AJMKrvRM+YD4cJHlG8`.
+  Added GitHub's host key (copied from vibe-lab's verified `ssh/known_hosts`) to `known_hosts` next to it.
+- **oracle1**: In `~/homelab-docs`, added remote `github` and set `core.sshCommand` to use that key.
+- **vibe-lab**: Gitignored `.claude/settings.local.json` (Claude Code permissions for this machine; allows only `git push` to `oracle1 main` and `github main`).
+- Why: see [decisions/0003-github-main-copy.md](decisions/0003-github-main-copy.md).
+- Undo: see the Undo section of decision 0003.
+
 ## 2026-10-04 — GitHub off-site backup remote
 
 - **vibe-lab**: Added git remote `github` = `git@github.com:abenedict/homelab-documentation.git` (private repo, already existed).

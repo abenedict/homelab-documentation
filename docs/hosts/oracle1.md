@@ -72,7 +72,7 @@ tailscaled, docker, containerd, Oracle Cloud Agent (snap `oracle-cloud-agent`, h
 |---|---|---|---|
 | code-server | `~/stacks/code-server/` | `configs/oracle1/code-server/compose.yaml` | https://oracle1.tail80394.ts.net (tailnet only) |
 
-Docs working copy: `~/homelab-docs` (git, pushed from vibe-lab).
+Docs working copy: `~/homelab-docs` (git). Remote `github` (the main copy) using deploy key `~/stacks/code-server/data/config/ssh/github_ed25519` (inside the container: `/home/coder/.config/ssh/`). vibe-lab also pushes here directly. See decision 0003.
 
 ## Role
 

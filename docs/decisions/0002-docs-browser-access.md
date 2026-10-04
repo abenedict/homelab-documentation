@@ -1,7 +1,7 @@
 # 0002: Browser access to docs: code-server + Tailscale + git
 
 **Date:** 2026-10-04
-**Status:** Accepted
+**Status:** Accepted; the Sync and Workflow sections are superseded by [0003](0003-github-main-copy.md) (GitHub is now the main copy)
 
 ## Decision
 
