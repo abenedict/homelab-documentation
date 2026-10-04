@@ -11,6 +11,8 @@ Newest first. Format: date — host(s) — what — why — how to undo.
   Sync section updated.
 - **oracle1** (you): unset `receive.denyCurrentBranch` in `~/homelab-docs`, since nothing pushes into it now.
 - **vibe-lab** (you): removed the `git push oracle1 main` allow rule from `.claude/settings.local.json`.
+- **vibe-lab**: Added allow rule `Bash(ssh -F /home/abenedict/claude/ssh/config oracle1 *)` to `.claude/settings.local.json`,
+  so Claude can run commands on oracle1 without a prompt (at your request). Undo: delete that line.
 - Why: see [decisions/0003-github-main-copy.md](decisions/0003-github-main-copy.md) ("Pull, not push, on oracle1").
 - Undo: on oracle1, `git config receive.denyCurrentBranch updateInstead`; restore the old Workflow from git history.
 
