@@ -2,6 +2,15 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-06 — oracle1 code-server crash loop after password change fixed
+
+- **oracle1** (you): changed the code-server password to an argon2 hash, but set `auth: hashed-password`. That isn't
+  a valid value, so code-server crash-looped and the site showed a blank white page.
+- **oracle1**: In `~/stacks/code-server/data/config/code-server/config.yaml`, changed `auth: hashed-password` to
+  `auth: password` and renamed the `password:` key (holding the hash) to `hashed-password:`. Restarted the stack.
+- Why: code-server only accepts `auth: password` or `auth: none`. A hash goes in the `hashed-password:` key.
+- Undo: restore `config.yaml.bak-20261006` in the same folder (the broken config).
+
 ## 2026-10-04 — oracle1 pulls from GitHub instead of being pushed to
 
 - **oracle1**: Ran `git fetch github` inside the code-server container to fix a stale `github/main` ref, which made
