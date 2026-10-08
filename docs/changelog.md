@@ -2,6 +2,19 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-08 — homelab-iac Phase 1 code written (not applied yet)
+
+- **prxmx02** (you): applied the pending `vmbr1` bridge. Claude confirmed it's active and nothing is pending.
+- **vibe-lab**: Created `~/homelab-iac` (git, remote `origin` = `git@github-iac:ploopyfloofee/homelab-iac.git`,
+  `core.sshCommand` uses `ssh/config`). Wrote the OpenTofu config, ran `tofu init`/`validate`/`plan`, pushed
+  the first commit. Nothing created on prxmx02 yet.
+- **vibe-lab**: Added `Host lab-router` (192.168.100.42) and `Host lab-app1` (10.42.0.10 via lab-router) to
+  `ssh/config`, with their own known_hosts file `ssh/known_hosts_lab`.
+  Undo: delete those two blocks.
+- Read-only checks: pinged 192.168.100.40/.42/.50/.60 from vibe-lab and read OPNsense's ARP table to confirm .42 is free.
+- Why: Phase 1 of `homelab-iac`. Choices in [decisions/0004](decisions/0004-homelab-iac-phase1-design.md);
+  next step in [plans/homelab-iac-phase1.md](plans/homelab-iac-phase1.md).
+
 ## 2026-10-08 — homelab-iac Phase 0 set up and checked
 
 - **prxmx02** (you): created pool `lab`, role `TofuLab`, user `tofu@pve` and token `tofu@pve!iac` with the ACLs in

@@ -3,8 +3,7 @@
 _Written 2026-10-08. When all four steps are done, tell Claude: "Phase 0 done". Claude will check that the token can
 see the `lab` pool and can't see VM 101 or CT 102, then start Phase 1._
 
-**Status 2026-10-08:** steps 1, 2 and 4 verified by Claude. Step 3 is half done: `vmbr1` was created but
-**Apply Configuration wasn't run**, so it's still pending on prxmx02. Repo: `git@github.com:ploopyfloofee/homelab-iac.git`.
+**Status 2026-10-08: complete.** All four steps verified by Claude. Next: [Phase 1](homelab-iac-phase1.md). Repo: `git@github.com:ploopyfloofee/homelab-iac.git`.
 
 ## Overall plan
 
@@ -63,7 +62,7 @@ error and give it to Claude.
 On vibe-lab, edit `~/.config/homelab-iac/proxmox.env` in your editor and replace `PASTE-SECRET-HERE` with the secret.
 Don't paste the secret into a chat.
 
-### [ ] 3. Create the internal bridge (created; **still needs Apply Configuration**)
+### [x] 3. Create the internal bridge
 
 Proxmox UI: **prxmx02 → System → Network → Create → Linux Bridge**
 

@@ -10,6 +10,20 @@ Host github-iac
     User git
     IdentityFile /home/abenedict/claude/ssh/claude_iac_github_ed25519
 
+# homelab-iac lab VMs (built by OpenTofu; see docs/plans/homelab-iac-phase1.md).
+# Separate known_hosts: every rebuild makes new host keys, so after a rebuild just delete ssh/known_hosts_lab.
+# Must come before Host *, because ssh uses the first value it finds for each setting.
+Host lab-router
+    HostName 192.168.100.42
+    User debian
+    UserKnownHostsFile /home/abenedict/claude/ssh/known_hosts_lab
+
+Host lab-app1
+    HostName 10.42.0.10
+    User debian
+    ProxyJump lab-router
+    UserKnownHostsFile /home/abenedict/claude/ssh/known_hosts_lab
+
 Host *
     IdentityFile /home/abenedict/claude/ssh/claude_homelab_ed25519
     IdentitiesOnly yes

@@ -16,6 +16,8 @@ Everything Claude generates or changes is recorded here so it can be rebuilt or 
 | `ssh/` | Claude's SSH key, SSH config, and known_hosts (dir is `chmod 700`) |
 | `configs/<host>/` | Config files deployed to servers (e.g. Docker compose files), kept here as the source of truth |
 
+Related repo: `~/homelab-iac` (`ploopyfloofee/homelab-iac`): OpenTofu/Ansible code for the Proxmox lab. Its history lives there; this repo records decisions and changes.
+
 ## Conventions
 
 - Every change made to a system gets a `docs/changelog.md` entry (date, host, what, why, how to undo).
