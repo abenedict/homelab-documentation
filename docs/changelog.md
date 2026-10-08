@@ -2,6 +2,19 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-08 — homelab-iac Phase 2: lab-router routes, firewalls and serves DNS/DHCP (Tailscale pending)
+
+- **lab-router** (Ansible, `~/homelab-iac` commit `8bd8c04`): installed qemu-guest-agent, nftables, dnsmasq.
+  IP forwarding on (`/etc/sysctl.d/90-lab-router.conf`). Firewall/NAT in `/etc/nftables.conf`. DNS/DHCP in
+  `/etc/dnsmasq.d/lab.conf`, listening on 10.42.0.1 only.
+- **lab-app1** (Ansible): downloaded package lists, installed qemu-guest-agent and pending updates.
+- **prxmx02** (OpenTofu): `agent.enabled = true` on VMs 200 and 201; both rebooted.
+- Checked: lab internet + `.lab` DNS work, lab → home blocked, DHCP offer correct, all survives reboot,
+  second playbook run `changed=0`, `tofu plan` no changes.
+- Undo: `tofu destroy` + `tofu apply` rebuilds the bare VMs (Phase 1 state); or revert the commit and set agent back to false.
+- Why/choices: [decisions/0005](decisions/0005-homelab-iac-phase2-router.md). Next steps (yours, Tailscale):
+  [plans/homelab-iac-phase2.md](plans/homelab-iac-phase2.md).
+
 ## 2026-10-08 — homelab-iac Phase 1 applied: lab-router and lab-app1 running
 
 - **prxmx02** (you): downloaded the Debian 13 cloud image in the UI to

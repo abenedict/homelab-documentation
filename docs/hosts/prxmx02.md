@@ -42,6 +42,8 @@ Claude's only access is the scoped API token below._
 | 200 | `lab-router` | WAN 192.168.100.42/24 (`vmbr0`), LAN 10.42.0.1/24 (`vmbr1`) | 1 vCPU, 1 GB, 8 GB disk |
 | 201 | `lab-app1` | 10.42.0.10/24 (`vmbr1`) | 2 vCPU, 2 GB, 20 GB disk |
 
+lab-router is the lab's gateway, firewall, DNS (`*.lab`) and DHCP server (Phase 2). Guest agent on for both.
+
 SSH: `ssh -F ~/claude/ssh/config lab-router` / `lab-app1`. Console password: `tofu output -raw console_password` in `~/homelab-iac/tofu`.
 
 ## homelab-iac access (set up 2026-10-08)

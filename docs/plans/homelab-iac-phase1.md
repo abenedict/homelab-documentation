@@ -39,4 +39,4 @@ Don't apply it; revert with `git checkout router.tf`.
 
 ## Next: Phase 2 (Ansible on lab-router)
 
-Not started. It begins with installing qemu-guest-agent on both VMs, then the router roles.
+See [homelab-iac-phase2.md](homelab-iac-phase2.md).
