@@ -2,6 +2,14 @@
 # Usage: ssh -F /home/abenedict/claude/ssh/config <host-alias>
 # Add one Host block per server as they're onboarded (see docs/hosts/).
 
+# Must come before Host * so its key is offered first (GitHub accepts the first key that authenticates).
+# GitHub deploy key for the homelab-iac repo (GitHub requires a unique deploy key per repo).
+# Use as remote: git@github-iac:abenedict/homelab-iac.git
+Host github-iac
+    HostName github.com
+    User git
+    IdentityFile /home/abenedict/claude/ssh/claude_iac_github_ed25519
+
 Host *
     IdentityFile /home/abenedict/claude/ssh/claude_homelab_ed25519
     IdentitiesOnly yes

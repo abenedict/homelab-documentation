@@ -2,6 +2,17 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-08 — IaC tooling installed; prxmx02 documented; homelab-iac deploy key created
+
+- **vibe-lab**: Installed into `~/.local/bin` (no sudo): OpenTofu 1.13.1, sops 3.13.3, age 1.3.2, uv 0.12.23, and
+  ansible-core 2.21.5 (via `uv tool install`). Checksums were verified for tofu, sops and uv. age publishes no checksum file.
+  Undo: `uv tool uninstall ansible-core`, then delete `tofu sops age age-keygen uv uvx` from `~/.local/bin`.
+- **vibe-lab**: Generated `ssh/claude_iac_github_ed25519` (gitignored) and added `Host github-iac` to `ssh/config`, above
+  `Host *` so GitHub sees that key first. Why: GitHub requires a unique deploy key per repo.
+  Undo: delete the key pair and the `Host github-iac` block.
+- Docs: added [hosts/prxmx02.md](hosts/prxmx02.md) from output you pasted. Nothing changed on prxmx02.
+- Why: start of the `homelab-iac` project (a self-contained, rebuildable lab on Proxmox).
+
 ## 2026-10-06 — oracle1 code-server crash loop after password change fixed
 
 - **oracle1** (you): changed the code-server password to an argon2 hash, but set `auth: hashed-password`. That isn't
