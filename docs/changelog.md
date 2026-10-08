@@ -2,6 +2,20 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-08 — homelab-iac Phase 0 set up and checked
+
+- **prxmx02** (you): created pool `lab`, role `TofuLab`, user `tofu@pve` and token `tofu@pve!iac` with the ACLs in
+  [plans/homelab-iac-phase0.md](plans/homelab-iac-phase0.md) step 1. Created bridge `vmbr1` in the UI, but the change is
+  still pending (not applied).
+  Undo: `pveum user delete tofu@pve` (removes its token and ACLs), `pveum role delete TofuLab`, `pveum pool delete lab`;
+  in the UI, select `vmbr1` → Remove, or **Revert** while it's still pending.
+- **vibe-lab** (you): put the token secret in `~/.config/homelab-iac/proxmox.env`.
+- **GitHub** (you): created private repo `ploopyfloofee/homelab-iac` (empty) and added Claude's deploy key with write access.
+- **vibe-lab**: Claude checked the token with read-only API calls: it sees only pool `lab`, lists no VMs, is denied on
+  VM 101 and CT 102, and sees only `local` and `local-lvm` storage. The deploy key authenticates to the repo.
+  Fixed the repo owner in the `ssh/config` comment (`ploopyfloofee`, not `abenedict`).
+- Why: Phase 0 of `homelab-iac`. Docs: [hosts/prxmx02.md](hosts/prxmx02.md).
+
 ## 2026-10-08 — IaC tooling installed; prxmx02 documented; homelab-iac deploy key created
 
 - **vibe-lab**: Installed into `~/.local/bin` (no sudo): OpenTofu 1.13.1, sops 3.13.3, age 1.3.2, uv 0.12.23, and

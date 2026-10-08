@@ -4,7 +4,7 @@
 
 # Must come before Host * so its key is offered first (GitHub accepts the first key that authenticates).
 # GitHub deploy key for the homelab-iac repo (GitHub requires a unique deploy key per repo).
-# Use as remote: git@github-iac:abenedict/homelab-iac.git
+# Use as remote: git@github-iac:ploopyfloofee/homelab-iac.git (private; owned by the ploopyfloofee account)
 Host github-iac
     HostName github.com
     User git

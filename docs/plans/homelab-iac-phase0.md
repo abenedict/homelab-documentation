@@ -3,6 +3,9 @@
 _Written 2026-10-08. When all four steps are done, tell Claude: "Phase 0 done". Claude will check that the token can
 see the `lab` pool and can't see VM 101 or CT 102, then start Phase 1._
 
+**Status 2026-10-08:** steps 1, 2 and 4 verified by Claude. Step 3 is half done: `vmbr1` was created but
+**Apply Configuration wasn't run**, so it's still pending on prxmx02. Repo: `git@github.com:ploopyfloofee/homelab-iac.git`.
+
 ## Overall plan
 
 | Phase | What gets built | What you learn |
@@ -29,7 +32,7 @@ Design: the router VM's WAN connects to `vmbr0` and gets its address by DHCP. Th
 
 ## Your steps
 
-### [ ] 1. Create the restricted Proxmox account
+### [x] 1. Create the restricted Proxmox account
 
 Run on prxmx02 as root:
 
@@ -55,12 +58,12 @@ What this does:
 The privilege list was written from memory of Proxmox 9's names. If `role add` errors on a privilege name, save the
 error and give it to Claude.
 
-### [ ] 2. Save the token secret
+### [x] 2. Save the token secret
 
 On vibe-lab, edit `~/.config/homelab-iac/proxmox.env` in your editor and replace `PASTE-SECRET-HERE` with the secret.
 Don't paste the secret into a chat.
 
-### [ ] 3. Create the internal bridge
+### [ ] 3. Create the internal bridge (created; **still needs Apply Configuration**)
 
 Proxmox UI: **prxmx02 → System → Network → Create → Linux Bridge**
 
@@ -71,7 +74,7 @@ Proxmox UI: **prxmx02 → System → Network → Create → Linux Bridge**
 Then click **Apply Configuration**. With no bridge ports, `vmbr1` is a virtual switch with no physical connection.
 Only the router VM will connect it to the outside.
 
-### [ ] 4. Create the GitHub repo
+### [x] 4. Create the GitHub repo
 
 1. Make a new **private** repo called `homelab-iac`, completely empty (no README or license).
 2. Go to **Settings → Deploy keys → Add deploy key**, check **Allow write access**, and paste:
