@@ -23,7 +23,6 @@ Repo: `git@github.com:ploopyfloofee/homelab-iac.git` (private), checked out on v
 
 - Rebuilding on a fresh Proxmox needs the image downloaded by hand first (instructions in `tofu/image.tf`).
   To automate it later: grant `Sys.AccessNetwork` on `/nodes/prxmx02` and switch back to `proxmox_download_file`.
-
 - If OPNsense ever hands out `.42` (pool change), the router's WAN address conflicts. Keep `.42` out of any pool.
 - On Proxmox 9.1 the token can't turn off cloud-init's first-boot package upgrade (root-only setting), so
   `lab-app1`'s first boot tries to upgrade and fails until the router routes in Phase 2. Harmless.
