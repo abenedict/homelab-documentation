@@ -2,6 +2,18 @@
 
 Newest first. Format: date — host(s) — what — why — how to undo.
 
+## 2026-10-08 — homelab-iac Phase 1 applied: lab-router and lab-app1 running
+
+- **prxmx02** (you): downloaded the Debian 13 cloud image in the UI to
+  `local:import/debian-13-genericcloud-amd64-20261001-2618.qcow2`, so the token didn't need `Sys.AccessNetwork`.
+- **homelab-iac**: OpenTofu now looks the image up (`data "proxmox_file"`) instead of downloading it. Commit `47c93a5`.
+- **prxmx02**: `tofu apply` created VM 200 `lab-router` and VM 201 `lab-app1` in pool `lab`, both set to start on boot.
+  Uses ~3 GB RAM and 28 GB of `local-lvm`.
+  Undo: `tofu destroy` in `~/homelab-iac/tofu` (leaves the image in place).
+- **vibe-lab**: `ssh/known_hosts_lab` created on first SSH to both VMs.
+- Checked: SSH to both, addresses and routes as designed, router has internet, second `tofu plan` = no changes.
+- Decision 0004 updated (image downloaded by hand).
+
 ## 2026-10-08 — homelab-iac Phase 1 code written (not applied yet)
 
 - **prxmx02** (you): applied the pending `vmbr1` bridge. Claude confirmed it's active and nothing is pending.

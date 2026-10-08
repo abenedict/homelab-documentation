@@ -35,6 +35,15 @@ Claude's only access is the scoped API token below._
 | 101 | VM | `haos-17.1` (Home Assistant OS) |
 | 102 | LXC | `cloudflared` |
 
+## homelab-iac guests (created 2026-10-08, pool `lab`)
+
+| ID | Name | Addresses | Size |
+|---|---|---|---|
+| 200 | `lab-router` | WAN 192.168.100.42/24 (`vmbr0`), LAN 10.42.0.1/24 (`vmbr1`) | 1 vCPU, 1 GB, 8 GB disk |
+| 201 | `lab-app1` | 10.42.0.10/24 (`vmbr1`) | 2 vCPU, 2 GB, 20 GB disk |
+
+SSH: `ssh -F ~/claude/ssh/config lab-router` / `lab-app1`. Console password: `tofu output -raw console_password` in `~/homelab-iac/tofu`.
+
 ## homelab-iac access (set up 2026-10-08)
 
 - Resource pool `lab` (empty so far). Repo: `git@github-iac:ploopyfloofee/homelab-iac.git` (private).
@@ -43,6 +52,7 @@ Claude's only access is the scoped API token below._
   Exact commands: [plans/homelab-iac-phase0.md](../plans/homelab-iac-phase0.md), step 1.
 - Checked with the token: it sees only the `lab` pool, lists no VMs, gets "Permission check failed" on VM 101 and CT 102,
   and sees only `local` and `local-lvm` storage (not `storage` or `pbs`).
-- Lab VM IDs in the 200–299 range. Planned (Phase 1, not created yet): 200 `lab-router` (WAN 192.168.100.42 on
-  `vmbr0`, LAN 10.42.0.1 on `vmbr1`), 201 `lab-app1` (10.42.0.10). Managed only by OpenTofu from `~/homelab-iac`.
+- Lab VM IDs in the 200–299 range. Managed only by OpenTofu from `~/homelab-iac`; don't edit them in the UI.
+- Debian 13 cloud image `local:import/debian-13-genericcloud-amd64-20261001-2618.qcow2` (downloaded by you in the UI).
+  Not owned by OpenTofu.
 - Internal subnet `10.42.0.0/24` (doesn't overlap 192.168.1.0/24 or 192.168.100.0/24).

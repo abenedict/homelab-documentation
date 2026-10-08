@@ -1,6 +1,6 @@
 # homelab-iac — Phase 1: Provision
 
-_Started 2026-10-08. Design choices: [decisions/0004](../decisions/0004-homelab-iac-phase1-design.md).
+_Started and completed 2026-10-08. Design choices: [decisions/0004](../decisions/0004-homelab-iac-phase1-design.md).
 Code: `~/homelab-iac` on vibe-lab, `git@github.com:ploopyfloofee/homelab-iac.git`._
 
 ## Done by Claude
@@ -10,24 +10,31 @@ Code: `~/homelab-iac` on vibe-lab, `git@github.com:ploopyfloofee/homelab-iac.git
 - First commit pushed to GitHub (confirms the deploy key has write access).
 - Added `Host lab-router` / `Host lab-app1` to `ssh/config`.
 
-## [ ] Your step: allow the token to download the image
+## [x] Your step: put the cloud image on prxmx02
 
-Proxmox's download-url API requires `Sys.AccessNetwork` on the node. The token doesn't have it, so `tofu apply`
-would fail on the image download. Run on prxmx02 as root:
+You chose to download it in the Proxmox UI instead of giving the token `Sys.AccessNetwork`. It's at
+`local:import/debian-13-genericcloud-amd64-20261001-2618.qcow2`. Its size matches Debian's file exactly (341,508,096 bytes).
+The code now looks the image up instead of downloading it.
+
+## [x] Applied and checked (Claude)
+
+- `tofu apply`: 3 added (the two VMs and the console password). Both VMs are running in pool `lab`.
+- `lab-router`: SSH works. `eth0` 192.168.100.42/24 (default route via .1), `eth1` 10.42.0.1/24. It reaches the
+  internet and pings lab-app1. cloud-init finished.
+- `lab-app1`: SSH works through lab-router. 10.42.0.10/24, gateway 10.42.0.1, passwordless sudo, Debian 13.7.
+  cloud-init still `running` (its package upgrade has no internet until Phase 2, as expected).
+- A second `tofu plan` reports **No changes**, so the code matches what's running.
+
+## Things to try yourself (optional, safe)
 
 ```bash
-pveum role add TofuDownload -privs "Sys.AccessNetwork"
-pveum acl modify /nodes/prxmx02 --users tofu@pve --roles TofuDownload
+cd ~/homelab-iac/tofu && source ~/.config/homelab-iac/proxmox.env
+tofu plan                 # "No changes"
+tofu state list           # what OpenTofu tracks
+tofu state show proxmox_virtual_environment_vm.router
 ```
 
-This lets the token make prxmx02 fetch a URL into storage, and nothing more. Undo:
-`pveum acl delete /nodes/prxmx02 --users tofu@pve --roles TofuDownload` then `pveum role delete TofuDownload`.
+Change `memory { dedicated = 1024 }` to `1536` in `router.tf` and run `tofu plan` to see an in-place change (`~`).
+Don't apply it; revert with `git checkout router.tf`.
 
-Then tell Claude "download permission added".
-
-## Then (Claude)
-
-1. Check the token has `Sys.AccessNetwork`, then `tofu apply`.
-2. Check: both VMs in pool `lab`, SSH to `lab-router` (WAN and LAN addresses up), SSH to `lab-app1` through it.
-3. `tofu plan` again shows **no changes** (proves the code matches what was built).
-4. Record it in the changelog and host docs.
+## Next: Phase 2 (Ansible on lab-router)
