@@ -12,6 +12,7 @@ Everything Claude generates or changes is recorded here so it can be rebuilt or 
 | `docs/changelog.md` | Chronological log of everything done, newest first |
 | `docs/decisions/` | Why something was configured a certain way (one file per decision) |
 | `docs/hosts/` | One file per server/device: IP, OS, role, services, how to access |
+| `docs/plans/` | Working checklists and plans for projects in progress |
 | `ssh/` | Claude's SSH key, SSH config, and known_hosts (dir is `chmod 700`) |
 | `configs/<host>/` | Config files deployed to servers (e.g. Docker compose files), kept here as the source of truth |
 
